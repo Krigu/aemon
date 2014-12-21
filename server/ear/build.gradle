@@ -1,0 +1,22 @@
+apply plugin: 'ear'
+
+dependencies {
+    deploy project(':ejb')
+    deploy project(path: ':web', configuration: 'archives')
+}
+
+ear {
+    deploymentDescriptor {
+        appDirName 'src/main/app'
+        applicationName = 'aemon'
+        initializeInOrder = true
+        displayName = 'Project Aemon' // defaults to project.name
+        description = 'Serverpart of project Aemon' // defaults to project.description
+
+        libDirName 'lib'
+        module('aemon.ejb-' + project.version + '.jar', 'ejb')
+        webModule('aemon.web-' + project.version + '.war', '/aemon')
+
+
+    }
+}

@@ -1,0 +1,94 @@
+configurations {
+    wildflyDist { transitive = false }
+}
+
+/**
+ * Install wildfly server for integration tests
+ */
+dependencies {
+    wildflyDist group: 'org.wildfly', name: 'wildfly-dist', version: '8.2.0.Final', ext: 'zip'
+}
+
+/**
+ * All Tasks
+ */
+task copyWildflyDistributionTask << {
+    println "Downloading wildfly 8.2 to target-folder ${rootDir}/build/"
+
+    def zipArchives = configurations.wildflyDist.resolve();
+
+    zipArchives.each {
+        File f = new File(it.getAbsolutePath())
+        copy {
+            from zipTree(f)
+            into "$buildDir"
+        }
+    }
+
+    println " Copy and extracting successful. Happy testing!"
+
+}
+
+/**
+ * Configs
+ */
+
+allprojects {
+    version = '0.1-SNAPSHOT'
+
+    ext.jbossHome = hasProperty('jbossHome') ? jbossHome : "${rootDir}/build/wildfly-8.2.0.Final"
+
+    repositories {
+        maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss1' }
+        maven { url 'https://repository.jboss.org/nexus/content/repositories' }
+        maven { url 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases' }
+        mavenCentral()
+        jcenter()
+    }
+}
+
+subprojects {
+
+    apply plugin: "java"
+
+    sourceCompatibility = 1.7
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+
+        compile group: 'org.wildfly', name: 'wildfly-spec-api', version: '8.2.0.Final'
+
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'org.jboss.shrinkwrap.resolver', name: 'shrinkwrap-resolver-depchain', version: '2.1.1'
+        testCompile group: 'org.jboss.arquillian', name: 'arquillian-bom', version: '1.1.5.Final'
+        testCompile group: 'org.jboss.arquillian.protocol', name: 'arquillian-protocol-servlet', version: '1.1.5.Final'
+        testCompile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-container', version: '1.1.5.Final'
+        testCompile group: 'org.wildfly', name: 'wildfly-arquillian-container-embedded', version: '8.2.0.Final'
+
+        testCompile "org.jboss.stdio:jboss-stdio:1.0.2.GA"
+
+        testRuntime group: 'org.jboss.logging', name: 'jboss-logging', version: '3.2.0.Final'
+
+    }
+
+    test {
+        jvmArgs '-XX:MaxPermSize=512m'
+
+        /**
+         * Installation of JBOSS to use for testing, this can be set here
+         * or in the arquillian.xml.
+         */
+        environment 'JBOSS_HOME', jbossHome
+        /**
+         * WildFly embedded default logging
+         */
+        systemProperty 'java.util.logging.manager', 'org.jboss.logmanager.LogManager'
+
+
+    }
+
+}
+
