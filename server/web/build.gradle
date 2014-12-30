@@ -2,4 +2,9 @@ apply plugin: 'war'
 
 dependencies {
     compile project(':ejb')
+    testCompile project(':ejb')
+
+    testCompile "javax.ws.rs:javax.ws.rs-api:2.0.1"
+    testCompile "org.jboss.resteasy:resteasy-client:3.0.10.Final"
+
 }
