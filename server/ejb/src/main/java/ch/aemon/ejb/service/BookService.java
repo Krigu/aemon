@@ -7,8 +7,6 @@ import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -34,8 +32,4 @@ public class BookService {
         return new BookDTO(b.getId(), b.getName());
     }
 
-    public List<BookDTO> findAllOrderedByName() {
-        final String getAllBooksJPQL = "select new ch.aemon.ejb.dto.BookDTO(b.id, b.name) from Book b order by b.name";
-        return em.createQuery(getAllBooksJPQL, BookDTO.class).getResultList();
-    }
 }

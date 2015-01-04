@@ -1,7 +1,9 @@
 package ch.aemon.rs.integration;
 
 import ch.aemon.ejb.dto.BookDTO;
+import ch.aemon.ejb.dto.MediaDTO;
 import ch.aemon.ejb.service.BookService;
+import ch.aemon.ejb.service.MediaService;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -13,21 +15,17 @@ import java.util.List;
 /**
  * Created by krigu on 25.12.14.
  */
-@Path("media/books")
+@Path("/media")
 @RequestScoped
-public class BookResource {
+public class MediaResource {
 
     @EJB
-    private BookService service;
+    private MediaService mediaService;
 
     @GET
-    @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
-    public BookDTO lookupBookDTOById(@PathParam("id") Integer id) {
-        BookDTO BookDTO = service.findById(id);
-        if (BookDTO == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
-        return BookDTO;
+    public List<MediaDTO> getAllMedias() {
+        return mediaService.findAllOrderedByName();
     }
+
 }

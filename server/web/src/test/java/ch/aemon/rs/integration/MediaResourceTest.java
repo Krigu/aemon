@@ -2,8 +2,11 @@ package ch.aemon.rs.integration;
 
 import ch.aemon.ejb.dto.AuthorDTO;
 import ch.aemon.ejb.dto.BookDTO;
+import ch.aemon.ejb.dto.MediaDTO;
 import ch.aemon.ejb.entity.Book;
+import ch.aemon.ejb.entity.Media;
 import ch.aemon.ejb.service.BookService;
+import ch.aemon.ejb.service.MediaService;
 import ch.aemon.util.ResourceProducer;
 import ch.aemon.web.AemonWebApplication;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -31,14 +34,14 @@ import java.net.URL;
  */
 @RunWith(Arquillian.class)
 @RunAsClient
-public class BookEntityServiceTest {
+public class MediaResourceTest {
 
     private static final String RESOURCE_PREFIX = AemonWebApplication.class.getAnnotation(ApplicationPath.class).value().substring(1);
 
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(Book.class, BookDTO.class, AuthorDTO.class, BookService.class, BookResource.class, AemonWebApplication.class, ResourceProducer.class)
+                .addClasses(Media.class,  MediaDTO.class, MediaService.class, MediaResource.class, AemonWebApplication.class, ResourceProducer.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource("test-ds.xml");
@@ -50,7 +53,7 @@ public class BookEntityServiceTest {
     @Test
     public void testAllBooks() throws Exception {
 
-        final String requestUri = deploymentUrl.toString() + RESOURCE_PREFIX  + "books";
+        final String requestUri = deploymentUrl.toString() + RESOURCE_PREFIX  + "media";
 
         Client client = ClientBuilder.newClient();
 

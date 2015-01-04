@@ -1,15 +1,14 @@
 package ch.aemon.service.unittest;
 
 import ch.aemon.ejb.dto.BookDTO;
-import ch.aemon.ejb.service.BookService;
-import org.junit.BeforeClass;
+import ch.aemon.ejb.dto.MediaDTO;
+import ch.aemon.ejb.service.MediaService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
@@ -22,10 +21,10 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BookEntityServiceTest {
+public class MediaServiceTest {
 
     @InjectMocks
-    private BookService bookService = new BookService();
+    private MediaService mediaService = new MediaService();
 
     @Mock
     private EntityManager mockedEntityManager;
@@ -36,16 +35,16 @@ public class BookEntityServiceTest {
     @Test
     public void testCreate() throws Exception {
 
-        List<BookDTO> bookList = Arrays.asList(new BookDTO(1, "Effective Mockito"));
+        List<MediaDTO> bookList = Arrays.asList(new MediaDTO(1, "Effective Mockito"));
 
         TypedQuery q = mock(TypedQuery.class);
 
         when(q.getResultList()).thenReturn(bookList);
-        when(mockedEntityManager.createQuery(anyString(), eq(BookDTO.class))).thenReturn(q);
+        when(mockedEntityManager.createQuery(anyString(), eq(MediaDTO.class))).thenReturn(q);
 
-        List<BookDTO> result = bookService.findAllOrderedByName();
+        List<MediaDTO> result = mediaService.findAllOrderedByName();
 
-        verify(mockedEntityManager).createQuery(anyString(), eq(BookDTO.class));
+        verify(mockedEntityManager).createQuery(anyString(), eq(MediaDTO.class));
 
         assertEquals(1, result.size());
         assertEquals(bookList, result);

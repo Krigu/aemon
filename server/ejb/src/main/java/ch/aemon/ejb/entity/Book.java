@@ -1,34 +1,16 @@
 package ch.aemon.ejb.entity;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by krigu on 20.12.14.
  */
 @Entity
-public class Book {
+@DiscriminatorValue("BOOK")
+@Table(name = "BOOKS")
+public class Book extends Media {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Integer id;
 
-    @Column(length = 50)
-    private String name;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
