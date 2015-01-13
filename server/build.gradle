@@ -12,7 +12,7 @@ dependencies {
 /**
  * All Tasks
  */
-task copyWildflyDistributionTask << {
+task downloadWildfly << {
     println "Downloading wildfly 8.2 to target-folder ${rootDir}/build/"
 
     def zipArchives = configurations.wildflyDist.resolve();
@@ -87,6 +87,7 @@ subprojects {
          */
         systemProperty 'java.util.logging.manager', 'org.jboss.logmanager.LogManager'
 
+        dependsOn downloadWildfly
 
     }
 
