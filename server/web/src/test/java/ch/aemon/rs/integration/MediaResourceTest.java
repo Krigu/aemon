@@ -3,6 +3,7 @@ package ch.aemon.rs.integration;
 import ch.aemon.ejb.dto.AuthorDTO;
 import ch.aemon.ejb.dto.BookDTO;
 import ch.aemon.ejb.dto.MediaDTO;
+import ch.aemon.ejb.entity.Author;
 import ch.aemon.ejb.entity.Book;
 import ch.aemon.ejb.entity.Media;
 import ch.aemon.ejb.service.BookService;
@@ -41,7 +42,7 @@ public class MediaResourceTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(Media.class,  MediaDTO.class, MediaService.class, MediaResource.class, AemonWebApplication.class, ResourceProducer.class)
+                .addClasses(Media.class, AuthorDTO.class, MediaDTO.class, MediaService.class, MediaResource.class, AemonWebApplication.class, ResourceProducer.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource("test-ds.xml");
