@@ -1,6 +1,5 @@
 package ch.aemon.service.unittest;
 
-import ch.aemon.ejb.dto.BookDTO;
 import ch.aemon.ejb.dto.MediaDTO;
 import ch.aemon.ejb.service.MediaService;
 import org.junit.Test;
@@ -16,8 +15,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,9 +30,10 @@ public class MediaServiceTest {
     private Logger log;
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testCreate() throws Exception {
 
-        List<MediaDTO> bookList = Arrays.asList(new MediaDTO(1, "Effective Mockito"));
+        List<MediaDTO> bookList = Arrays.asList(new MediaDTO(1L, "Effective Mockito"));
 
         TypedQuery q = mock(TypedQuery.class);
 

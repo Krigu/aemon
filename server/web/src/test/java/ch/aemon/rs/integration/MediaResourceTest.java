@@ -1,12 +1,8 @@
 package ch.aemon.rs.integration;
 
 import ch.aemon.ejb.dto.AuthorDTO;
-import ch.aemon.ejb.dto.BookDTO;
 import ch.aemon.ejb.dto.MediaDTO;
-import ch.aemon.ejb.entity.Author;
-import ch.aemon.ejb.entity.Book;
 import ch.aemon.ejb.entity.Media;
-import ch.aemon.ejb.service.BookService;
 import ch.aemon.ejb.service.MediaService;
 import ch.aemon.util.ResourceProducer;
 import ch.aemon.web.AemonWebApplication;
@@ -30,9 +26,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URL;
 
-/**
- * Created by krigu on 21.12.14.
- */
 @RunWith(Arquillian.class)
 @RunAsClient
 public class MediaResourceTest {

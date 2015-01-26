@@ -1,9 +1,5 @@
 package ch.aemon.util;
 
-/**
- * Created by krigu on 21.12.14.
- */
-
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -26,7 +22,7 @@ public class ResourceProducer {
     }
 
     /**
-     * @param injectionPoint
+     * @param injectionPoint metadata about the injection point.
      * @return logger
      */
     @Produces

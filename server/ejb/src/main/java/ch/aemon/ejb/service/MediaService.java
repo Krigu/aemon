@@ -1,6 +1,5 @@
 package ch.aemon.ejb.service;
 
-import ch.aemon.ejb.dto.BookDTO;
 import ch.aemon.ejb.dto.MediaDTO;
 
 import javax.annotation.security.PermitAll;
@@ -10,9 +9,6 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Created by krigu on 04.01.15.
- */
 @Stateless
 @PermitAll
 public class MediaService {
