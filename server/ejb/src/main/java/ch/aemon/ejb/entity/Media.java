@@ -2,10 +2,6 @@ package ch.aemon.ejb.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by krigu on 04.01.15.
- */
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "MEDIA_TYPE")
@@ -15,16 +11,16 @@ public class Media {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(length = 250)
     private String name;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

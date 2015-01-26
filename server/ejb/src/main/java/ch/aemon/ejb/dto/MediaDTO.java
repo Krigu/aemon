@@ -1,27 +1,29 @@
 package ch.aemon.ejb.dto;
 
-import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
-/**
- * Created by krigu on 04.01.15.
- */
-public class MediaDTO {
+@XmlRootElement(name = "media")
+public class MediaDTO implements Serializable {
 
-    private Integer id;
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
     private String name;
 
-    private List<AuthorDTO> authors;
+    public MediaDTO() {
+    }
 
-    public MediaDTO(Integer id, String name) {
+    public MediaDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -33,11 +35,5 @@ public class MediaDTO {
         this.name = name;
     }
 
-    public List<AuthorDTO> getAuthors() {
-        return authors;
-    }
 
-    public void setAuthors(List<AuthorDTO> authors) {
-        this.authors = authors;
-    }
 }

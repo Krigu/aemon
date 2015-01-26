@@ -10,9 +10,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-/**
- * Created by krigu on 25.12.14.
- */
 @Path("media/books")
 @RequestScoped
 public class BookResource {
@@ -21,13 +18,25 @@ public class BookResource {
     private BookService service;
 
     @GET
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response lookupAllBooks() {
+        List<BookDTO> list = service.findAllBooks();
+        System.out.println("List: " + list);
+        if (list == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return Response.ok(list).build();
+    }
+
+    @GET
     @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
     public BookDTO lookupBookDTOById(@PathParam("id") Integer id) {
-        BookDTO BookDTO = service.findById(id);
-        if (BookDTO == null) {
+        BookDTO bookDTO = service.findById(id);
+        if (bookDTO == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        return BookDTO;
+        return bookDTO;
     }
 }

@@ -1,16 +1,25 @@
 package ch.aemon.ejb.entity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
-/**
- * Created by krigu on 20.12.14.
- */
 @Entity
 @DiscriminatorValue("BOOK")
-@Table(name = "BOOKS")
+@Table(name = "BOOK")
 public class Book extends Media {
 
+    @ManyToMany
+    @JoinTable(name = "BOOK_AUTHOR",
+            joinColumns = {@JoinColumn(name = "BOOK_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "AUTHOR_ID")}
+    )
+    private List<Author> authors;
 
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
 }

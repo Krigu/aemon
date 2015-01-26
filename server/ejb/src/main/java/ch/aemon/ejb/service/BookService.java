@@ -7,11 +7,8 @@ import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.logging.Logger;
-
-/**
- * Created by krigu on 21.12.14.
- */
 
 @Stateless
 @PermitAll
@@ -24,12 +21,16 @@ public class BookService {
     private EntityManager em;
 
     public BookDTO findById(Integer id) {
-        // TODO
         Book b = em.find(Book.class, id);
         if (b == null)
             return null;
 
-        return new BookDTO(b.getId(), b.getName());
+        return new BookDTO(b);
+    }
+
+    public List<BookDTO> findAllBooks() {
+        final String getAllBooksJPQL = "select new ch.aemon.ejb.dto.BookDTO(b) from Book b order by b.name";
+        return em.createQuery(getAllBooksJPQL, BookDTO.class).getResultList();
     }
 
 }

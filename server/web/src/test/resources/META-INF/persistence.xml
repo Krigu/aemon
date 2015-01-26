@@ -3,11 +3,14 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
   <persistence-unit name="EJBTest">
-    <jta-data-source>jboss/datasources/ExampleDS</jta-data-source>
+    <jta-data-source>jboss/datasources/TestDS</jta-data-source>
+
+    <class>ch.aemon.ejb.entity.Book</class>
+    <class>ch.aemon.ejb.entity.Media</class>
+    <class>ch.aemon.ejb.entity.Author</class>
 
     <properties>
-      <property name="hibernate.archive.autodetection" value="class" />
-      <property name="hibernate.show_sql" value="false" />
+      <property name="hibernate.show_sql" value="true" />
       <property name="hibernate.format_sql" value="true" />
       <property name="hibernate.hbm2ddl.auto" value="create-drop" />
       <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
@@ -15,7 +18,8 @@
 
       <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
       <property name="hibernate.connection.driver_class" value="org.h2.Driver" />
-      <property name="hibernate.connection.url" value="jdbc:h2:mem" />
+      <!--<property name="hibernate.connection.url" value="jdbc:h2:mem" />-->
+
 
     </properties>
   </persistence-unit>
