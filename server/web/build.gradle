@@ -4,6 +4,7 @@ dependencies {
     compile project(':ejb')
     testCompile project(':ejb')
 
+    compile 'org.jboss.resteasy:resteasy-jackson-provider:3.0.10.Final'
     testCompile "javax.ws.rs:javax.ws.rs-api:2.0.1"
     testCompile "org.jboss.resteasy:resteasy-client:3.0.10.Final"
 

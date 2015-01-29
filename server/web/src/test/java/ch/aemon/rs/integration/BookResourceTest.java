@@ -1,5 +1,6 @@
 package ch.aemon.rs.integration;
 
+import ch.aemon.ejb.dto.BookDTO;
 import ch.aemon.web.AemonWebApplication;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -50,6 +51,19 @@ public class BookResourceTest {
         String response = myResource.request(MediaType.APPLICATION_JSON).get(String.class);
 
         Assert.assertEquals("[{\"id\":1,\"name\":\"NHL Advanced\",\"authors\":[{\"id\":1,\"name\":\"Kurt Sauer\"}]}]", response);
+    }
+
+    @Test
+    public void testGetBookById() throws Exception {
+
+        final String requestUri = deploymentUrl.toString() + RESOURCE_PREFIX + "media/books/1";
+
+        Client client = ClientBuilder.newClient();
+        WebTarget myResource = client.target(requestUri);
+
+        BookDTO bookDTO = myResource.request(MediaType.APPLICATION_JSON).get(BookDTO.class);
+
+        Assert.assertEquals("NHL Advanced", bookDTO.getName());
     }
 }
 

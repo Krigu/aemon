@@ -32,8 +32,8 @@ public class BookResource {
     @GET
     @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
-    public BookDTO lookupBookDTOById(@PathParam("id") Integer id) {
-        BookDTO bookDTO = service.findById(id);
+    public BookDTO lookupBookDTOById(@PathParam("id") Long id) {
+        BookDTO bookDTO = service.getById(id);
         if (bookDTO == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }

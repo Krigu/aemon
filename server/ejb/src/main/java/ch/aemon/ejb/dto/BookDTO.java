@@ -12,6 +12,8 @@ public class BookDTO extends MediaDTO {
 
     private List<AuthorDTO> authors = new ArrayList<>();
 
+    public BookDTO() {
+    }
 
     public BookDTO(Long id, String name) {
         super(id, name);

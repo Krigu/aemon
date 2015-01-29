@@ -34,16 +34,19 @@ public class BookServiceTest {
 
     @Mock
     private Logger log;
+
     private List<BookDTO> bookList;
+    private Book bookEntity;
+    private Author authorEntity;
 
     @Before
     public void before(){
-        final Author authorEntity = new Author();
+        authorEntity = new Author();
         authorEntity.setId(1L);
         authorEntity.setName(AUTHOR_NAME);
 
 
-        final Book bookEntity = new Book();
+        bookEntity = new Book();
         bookEntity.setId(1L);
         bookEntity.setName(BOOK_NAME);
         bookEntity.setAuthors(Arrays.asList(authorEntity));
@@ -97,6 +100,20 @@ public class BookServiceTest {
 
         assertNotNull(testBook.getAuthors());
         assertTrue(testBook.getAuthors().isEmpty());
+
+    }
+
+    @Test
+    public void testGetById()  {
+
+        when(mockedEntityManager.find(eq(Book.class), eq(bookEntity.getId()))).thenReturn(bookEntity);
+
+        final BookDTO testBook = bookService.getById(bookEntity.getId());
+
+        verify(mockedEntityManager).find(eq(Book.class), eq(bookEntity.getId()));
+
+        assertEquals(new BookDTO(bookEntity),testBook);
+        assertNotNull(testBook.getAuthors());
 
     }
 

@@ -20,7 +20,7 @@ public class BookService {
     @Inject
     private EntityManager em;
 
-    public BookDTO findById(Integer id) {
+    public BookDTO getById(Long id) {
         Book b = em.find(Book.class, id);
         if (b == null)
             return null;
