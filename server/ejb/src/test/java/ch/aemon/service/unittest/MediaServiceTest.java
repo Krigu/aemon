@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 public class MediaServiceTest {
 
     @InjectMocks
-    private MediaService mediaService = new MediaService();
+    private final MediaService mediaService = new MediaService();
 
     @Mock
     private EntityManager mockedEntityManager;

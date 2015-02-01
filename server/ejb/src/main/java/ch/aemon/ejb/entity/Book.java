@@ -15,11 +15,24 @@ public class Book extends Media {
     )
     private List<Author> authors;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ID_PUBLISHER")
+    private Publisher publisher;
+
+
     public List<Author> getAuthors() {
         return authors;
     }
 
     public void setAuthors(List<Author> authors) {
         this.authors = authors;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 }

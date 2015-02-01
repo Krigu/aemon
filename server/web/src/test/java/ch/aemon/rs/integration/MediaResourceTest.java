@@ -42,7 +42,7 @@ public class MediaResourceTest {
     }
 
     @ArquillianResource
-    URL deploymentUrl;
+    private URL deploymentUrl;
 
     @Test
     public void testAllBooks() throws Exception {

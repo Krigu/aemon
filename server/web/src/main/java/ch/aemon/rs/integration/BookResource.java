@@ -22,7 +22,6 @@ public class BookResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response lookupAllBooks() {
         List<BookDTO> list = service.findAllBooks();
-        System.out.println("List: " + list);
         if (list == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }

@@ -15,11 +15,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import java.net.URL;
+import java.util.List;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -38,19 +39,22 @@ public class BookResourceTest {
     }
 
     @ArquillianResource
-    URL deploymentUrl;
+    private URL deploymentUrl;
 
     @Test
     public void testAllBooks() throws Exception {
 
         final String requestUri = deploymentUrl.toString() + RESOURCE_PREFIX + "media/books";
 
-        Client client = ClientBuilder.newClient();
-        WebTarget myResource = client.target(requestUri);
+        Invocation.Builder requestBuilder = ClientBuilder.newClient().target(requestUri).request(MediaType.APPLICATION_JSON);
 
-        String response = myResource.request(MediaType.APPLICATION_JSON).get(String.class);
+        GenericType<List<BookDTO>> bookType = new GenericType<List<BookDTO>>() {};
+        List<BookDTO> response = requestBuilder.get(bookType);
 
-        Assert.assertEquals("[{\"id\":1,\"name\":\"NHL Advanced\",\"authors\":[{\"id\":1,\"name\":\"Kurt Sauer\"}]}]", response);
+        Assert.assertFalse(response.isEmpty());
+        Assert.assertEquals(1, response.size());
+        BookDTO bookUnderTest = response.get(0);
+        Assert.assertEquals("NHL Advanced", bookUnderTest.getName());
     }
 
     @Test
@@ -58,12 +62,13 @@ public class BookResourceTest {
 
         final String requestUri = deploymentUrl.toString() + RESOURCE_PREFIX + "media/books/1";
 
-        Client client = ClientBuilder.newClient();
-        WebTarget myResource = client.target(requestUri);
+        Invocation.Builder requestBuilder = ClientBuilder.newClient().target(requestUri).request(MediaType.APPLICATION_JSON);
 
-        BookDTO bookDTO = myResource.request(MediaType.APPLICATION_JSON).get(BookDTO.class);
+        BookDTO bookDTO = requestBuilder.get(BookDTO.class);
 
         Assert.assertEquals("NHL Advanced", bookDTO.getName());
+        Assert.assertNotNull(bookDTO.getPusblisher());
+        Assert.assertEquals("SuperPublisher", bookDTO.getPusblisher().getName());
     }
 }
 

@@ -27,7 +27,7 @@ public class BookServiceTest {
     private static final String BOOK_NAME = "Effective Mockito";
 
     @InjectMocks
-    private BookService bookService = new BookService();
+    private final BookService bookService = new BookService();
 
     @Mock
     private EntityManager mockedEntityManager;
@@ -37,11 +37,10 @@ public class BookServiceTest {
 
     private List<BookDTO> bookList;
     private Book bookEntity;
-    private Author authorEntity;
 
     @Before
     public void before(){
-        authorEntity = new Author();
+        Author authorEntity = new Author();
         authorEntity.setId(1L);
         authorEntity.setName(AUTHOR_NAME);
 
@@ -112,7 +111,7 @@ public class BookServiceTest {
 
         verify(mockedEntityManager).find(eq(Book.class), eq(bookEntity.getId()));
 
-        assertEquals(new BookDTO(bookEntity),testBook);
+        assertEquals(new BookDTO(bookEntity), testBook);
         assertNotNull(testBook.getAuthors());
 
     }
