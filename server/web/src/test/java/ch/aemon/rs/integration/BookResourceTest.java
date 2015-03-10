@@ -9,8 +9,10 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.gradle.archive.importer.embedded.EmbeddedGradleImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,13 +31,21 @@ public class BookResourceTest {
     private static final String RESOURCE_PREFIX = AemonWebApplication.class.getAnnotation(ApplicationPath.class).value().substring(1);
 
     @Deployment
-    public static Archive<?> createTestArchive() {
-        return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addPackages(true, "ch.aemon")
+    public static WebArchive createDeployment() {
+        // Bug: https://github.com/mmatloka/arquillian-gradle-sample/issues/2
+        // TODO: Remove with next version of GradleImporter
+        System.getProperties().remove("javax.xml.parsers.SAXParserFactory");
+
+        final WebArchive webArchive = ShrinkWrap.create(EmbeddedGradleImporter.class)
+                .forThisProjectDirectory()
+                .importBuildOutput().as(WebArchive.class)
                 .addAsResource("import.sql")
                 .addAsResource("META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource("test-ds.xml");
+
+        System.setProperty("javax.xml.parsers.SAXParserFactory", "__redirected.__SAXParserFactory");
+        return webArchive;
     }
 
     @ArquillianResource
