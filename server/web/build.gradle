@@ -4,35 +4,28 @@ configurations {
     wildflyDist
 }
 
-repositories {
-    maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss1' }
-    maven { url 'https://repository.jboss.org/nexus/content/repositories' }
-    maven { url 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases' }
-    mavenCentral()
-    jcenter()
-}
-
 dependencies {
 
     compile project(':ejb')
-    testCompile project(':ejb')
 
     compile 'org.jboss.resteasy:resteasy-jackson-provider:3.0.10.Final'
+//    compile group: 'org.wildfly', name: 'wildfly-spec-api', version: libraryVersions.wildfly
+
     // REST
     testCompile "javax.ws.rs:javax.ws.rs-api:2.0.1"
     testCompile "org.jboss.resteasy:resteasy-client:3.0.10.Final"
     // Wildfly
-    //testCompile "org.jboss.stdio:jboss-stdio:1.0.2.GA"
-    //testCompile group: "org.jboss.stdio" ,name: "jboss-stdio", version: "1.0.2.GA"
-    testCompile group: 'org.jboss.shrinkwrap.resolver', name: 'shrinkwrap-resolver-depchain', version: '2.1.1'
+    testCompile group: 'org.jboss.shrinkwrap.resolver', name: 'shrinkwrap-resolver-depchain', version: '2.2.0-beta-1'
     testCompile group: 'org.jboss.arquillian', name: 'arquillian-bom', version: '1.1.5.Final'
     testCompile group: 'org.jboss.arquillian.protocol', name: 'arquillian-protocol-servlet', version: '1.1.5.Final'
     testCompile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-container', version: '1.1.5.Final'
-    testCompile group: 'org.wildfly', name: 'wildfly-arquillian-container-embedded', version: '8.2.0.Final'
+    testCompile group: 'org.wildfly', name: 'wildfly-arquillian-container-embedded', version: libraryVersions.wildfly
+    testCompile group: 'org.jboss.shrinkwrap.resolver', name: 'shrinkwrap-resolver-gradle-depchain', version: '2.2.0-beta-1'
+
 
     testRuntime group: 'org.jboss.logging', name: 'jboss-logging', version: '3.2.0.Final'
 
-    wildflyDist group: 'org.wildfly', name: 'wildfly-dist', version: '8.2.0.Final', ext: 'zip'
+    wildflyDist group: 'org.wildfly', name: 'wildfly-dist', version: libraryVersions.wildfly, ext: 'zip'
 
 }
 
@@ -40,7 +33,7 @@ dependencies {
  * Install wildfly server for integration tests
  */
 task downloadWildfly << {
-    println "Downloading wildfly 8.2 to target-folder ${rootDir}/build/"
+    println "Downloading wildfly ${libraryVersions.wildfly} to target-folder ${rootDir}/build/"
 
     def zipArchives = configurations.wildflyDist.resolve();
 
@@ -52,7 +45,7 @@ task downloadWildfly << {
         }
     }
 
-    println " Copy and extracting successful. Happy testing!"
+    println " Copy and extracting successful. Happy testing! "
 
 }
 
@@ -62,7 +55,7 @@ test {
      * Installation of JBOSS to use for testing, this can be set here
      * or in the arquillian.xml.
      */
-    environment 'JBOSS_HOME', hasProperty('jbossHome') ? jbossHome : "${rootDir}/build/wildfly-8.2.0.Final"
+    environment 'JBOSS_HOME', hasProperty('jbossHome') ? jbossHome : "${rootDir}/web/build/wildfly-${libraryVersions.wildfly}"
 
     /**
      * WildFly embedded default logging

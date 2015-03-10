@@ -15,14 +15,25 @@ subprojects {
 
     repositories {
         mavenCentral()
+        maven { url "https://jcenter.bintray.com" }
+        maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss1' }
+        maven { url 'https://repository.jboss.org/nexus/content/repositories' }
+        maven { url 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases' }
     }
 
-    dependencies {
-        compile group: 'org.wildfly', name: 'wildfly-spec-api', version: '8.2.0.Final'
+    ext.libraryVersions = [
+            wildfly: '8.2.0.Final'
+    ]
 
+    dependencies {
+        compile group: 'org.wildfly', name: 'wildfly-spec-api', version: libraryVersions.wildfly
         testCompile group: 'junit', name: 'junit', version: '4.11'
     }
 
 
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
 }
 
