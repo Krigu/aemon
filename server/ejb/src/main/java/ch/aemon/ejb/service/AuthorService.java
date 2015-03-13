@@ -47,7 +47,7 @@ public class AuthorService {
     }
 
     @Transactional
-    public void delete(String id) {
-        em.createQuery("delete from Author where id = :id").setParameter("id", Long.valueOf(id)).executeUpdate();
+    public void delete(Long id) {
+        em.createQuery("delete from Author where id = :id").setParameter("id", id).executeUpdate();
     }
 }
