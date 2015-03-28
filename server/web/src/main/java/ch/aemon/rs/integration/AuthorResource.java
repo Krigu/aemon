@@ -49,7 +49,7 @@ public class AuthorResource {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(final @PathParam("id") String id) {
+    public Response delete(final @PathParam("id") Long id) {
         service.delete(id);
         return Response.ok().build();
     }
