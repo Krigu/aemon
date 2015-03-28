@@ -13,9 +13,11 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.logging.Logger;
 
+
 @Stateless
 @PermitAll
 public class AuthorService {
+
 
     @Inject
     private Logger log;
@@ -26,12 +28,15 @@ public class AuthorService {
     @Inject
     private MapperFacade mapperFacade;
 
+
     public AuthorDTO getById(Long id) {
+
+
         Author b = em.find(Author.class, id);
         if (b == null)
             return null;
 
-        return mapperFacade.map(b,AuthorDTO.class);
+        return mapperFacade.map(b, AuthorDTO.class);
     }
 
     public List<AuthorDTO> findAll() {
