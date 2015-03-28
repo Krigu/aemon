@@ -1,7 +1,9 @@
 package ch.aemon.util;
 
 import ch.aemon.ejb.dto.AuthorDTO;
+import ch.aemon.ejb.dto.StudentDTO;
 import ch.aemon.ejb.entity.Author;
+import ch.aemon.ejb.entity.Student;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
@@ -20,6 +22,7 @@ public class MapperProducer {
     public void init() {
         mapperFactory = new DefaultMapperFactory.Builder().build();
         mapperFactory.classMap(Author.class, AuthorDTO.class).byDefault();
+        mapperFactory.classMap(Student.class, StudentDTO.class).byDefault();
     }
 
     @Produces

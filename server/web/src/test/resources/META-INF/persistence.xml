@@ -9,6 +9,7 @@
     <class>ch.aemon.ejb.entity.Media</class>
     <class>ch.aemon.ejb.entity.Author</class>
     <class>ch.aemon.ejb.entity.Publisher</class>
+    <class>ch.aemon.ejb.entity.Student</class>
 
     <properties>
       <property name="hibernate.show_sql" value="true" />
