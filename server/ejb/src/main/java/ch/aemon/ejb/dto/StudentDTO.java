@@ -2,21 +2,29 @@
 package ch.aemon.ejb.dto;
 
 
+import ch.aemon.ejb.entity.Student;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @XmlRootElement(name = "student")
-public class StudentDTO implements Serializable{
-    
+public class StudentDTO implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private Long id;
     private String firstName;
     private String familyName;
 
     public StudentDTO() {
     }
-    
+
+    public StudentDTO(Student student) {
+        this.id = student.getId();
+        this.firstName = student.getFirstName();
+        this.familyName = student.getLastName();
+    }
+
     public StudentDTO(String firstName, String familyName) {
         this.firstName = firstName;
         this.familyName = familyName;
