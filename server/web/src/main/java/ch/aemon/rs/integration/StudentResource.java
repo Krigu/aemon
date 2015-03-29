@@ -1,7 +1,6 @@
 
 package ch.aemon.rs.integration;
 
-import ch.aemon.ejb.dto.AuthorDTO;
 import ch.aemon.ejb.dto.StudentDTO;
 import ch.aemon.ejb.service.StudentService;
 

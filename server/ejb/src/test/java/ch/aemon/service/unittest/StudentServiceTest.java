@@ -1,7 +1,6 @@
 
 package ch.aemon.service.unittest;
 
-import ch.aemon.ejb.entity.Student;
 import ch.aemon.ejb.dto.StudentDTO;
 import ch.aemon.ejb.service.StudentService;
 

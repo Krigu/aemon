@@ -10,10 +10,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 import ma.glasnost.orika.MapperFacade;
 
