@@ -1,4 +1,17 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.bmuschko:gradle-cargo-plugin:2.1"
+    }
+}
+
 apply plugin: 'war'
+apply plugin: 'com.bmuschko.cargo'
+
 
 configurations {
     wildflyDist
@@ -26,6 +39,7 @@ dependencies {
     testRuntime group: 'org.jboss.logging', name: 'jboss-logging', version: '3.2.0.Final'
 
     wildflyDist group: 'org.wildfly', name: 'wildfly-dist', version: libraryVersions.wildfly, ext: 'zip'
+
 
 }
 
@@ -68,9 +82,23 @@ test {
     systemProperty 'jboss.management.http.port', '9990'
     systemProperty 'jboss.http.port', '8080'
 
-    /**
-     * Download Wildfly to build-folder
-     */
-    dependsOn downloadWildfly
+
+}
+
+cargoRunLocal.dependsOn assemble, downloadWildfly
+
+cargo {
+    containerId = 'wildfly8x'
+
+    deployable {
+        context = 'aemon'
+    }
+
+    local {
+        containerProperties {
+            outputFile = file('build/wildfly.log')
+            homeDir = file("${rootDir}/web/build/wildfly-${libraryVersions.wildfly}")
+        }
+    }
 
 }
