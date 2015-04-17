@@ -82,7 +82,10 @@ test {
     systemProperty 'jboss.management.http.port', '9990'
     systemProperty 'jboss.http.port', '8080'
 
-
+    /**
+     * Download Wildfly to build-folder
+     */
+    dependsOn downloadWildfly
 }
 
 cargoRunLocal.dependsOn assemble, downloadWildfly
