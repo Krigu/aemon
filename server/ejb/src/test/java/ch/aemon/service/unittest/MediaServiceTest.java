@@ -11,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -33,7 +34,7 @@ public class MediaServiceTest {
     @SuppressWarnings("unchecked")
     public void testCreate() throws Exception {
 
-        List<MediaDTO> bookList = Arrays.asList(new MediaDTO(1L, "Effective Mockito"));
+        List<MediaDTO> bookList = Collections.singletonList(new MediaDTO(1L, "Effective Mockito"));
 
         TypedQuery q = mock(TypedQuery.class);
 

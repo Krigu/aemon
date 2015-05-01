@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -48,9 +49,9 @@ public class BookServiceTest {
         bookEntity = new Book();
         bookEntity.setId(1L);
         bookEntity.setName(BOOK_NAME);
-        bookEntity.setAuthors(Arrays.asList(authorEntity));
+        bookEntity.setAuthors(Collections.singletonList(authorEntity));
 
-        bookList = Arrays.asList(new BookDTO(bookEntity));
+        bookList = Collections.singletonList(new BookDTO(bookEntity));
     }
 
     @Test
@@ -83,7 +84,7 @@ public class BookServiceTest {
         bookEntityNoAuthors.setId(1L);
         bookEntityNoAuthors.setName(BOOK_NAME);
 
-        final List<BookDTO> bookListNoAuthors =  Arrays.asList(new BookDTO(bookEntityNoAuthors));
+        final List<BookDTO> bookListNoAuthors = Collections.singletonList(new BookDTO(bookEntityNoAuthors));
 
         final TypedQuery q = mock(TypedQuery.class);
         when(q.getResultList()).thenReturn(bookListNoAuthors);

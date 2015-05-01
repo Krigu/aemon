@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 import static org.junit.Assert.*;
@@ -42,7 +43,7 @@ public class StudentServiceTest {
         studentDTO.setFirstName(FIRST_NAME);
         studentDTO.setLastName(LAST_NAME);
         
-        studentList = Arrays.asList(studentDTO);
+        studentList = Collections.singletonList(studentDTO);
     }
     
     @Test
